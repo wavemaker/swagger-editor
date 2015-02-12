@@ -1,17 +1,24 @@
+var express = require('express');
+var path = require('path');
+
 var api = require('./controllers/api');
-var main = require('./controllers/main');
+var config = require('./controllers/config');
 
 module.exports = function (app) {
 
-  // API endpoints
-  app.post('/api/', api.create); // Make a new Bin
-  app.get('/api/:id', api.latest); // Get latest version
-  app.put('/api/:id', api.updateLastVersion); // Update latest version of a bin
-  app.post('/api/:id', api.addVersion); // Add a new version to a bin
-  app.get('/api/:id/:version', api.getVersion); // Get a specific version of a bin
+  // Configuration
+  app.get('/config/defaults.json', config.show)
+  app.get('/:id/config/defaults.json', config.show)
+  app.get('/:id/:version/config/defaults.json', config.show)
 
-  // Main endpoints
-  app.get('/', main.new); // Empty editor
-  app.get('/:id', main.show); // Editor loaded with a bin
-  app.get('/:id/:version', main.show); // Editor loaded with an specific version of a bin
+  // API endpoints
+  app.get('/:id/specs', api.latest); // Get latest version
+  app.get('/:id/:version/specs', api.getVersion); // Get a specific version of a bin
+  app.put('/:id/api/', api.updateLastVersion); // Update latest version of a bin
+  app.put('/:id/:version/api/', api.updateLastVersion); // Update latest version of a bin
+
+  // Static Editor
+  app.use('/', express.static(path.join(__dirname, '..', 'dist')));
+  app.use('/:id', express.static(path.join(__dirname, '..', 'dist')));
+  app.use('/:id/:version', express.static(path.join(__dirname, '..', 'dist')));
 };

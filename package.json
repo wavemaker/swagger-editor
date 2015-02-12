@@ -71,8 +71,8 @@
   },
   "scripts": {
     "test": "sh scripts/test.sh",
+    "build": "node start.js build",
     "prestart": "npm install",
-    "start": "node start.js",
-    "server": "node server/"
+    "start": "ode start.js build; node server/index.js"
   }
 }

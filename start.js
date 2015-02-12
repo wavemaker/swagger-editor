@@ -2,6 +2,7 @@
 
 var bower = require('bower');
 var grunt = require('grunt');
+var task = process.argv[2];
 
 bower.commands
   .install()
@@ -9,5 +10,5 @@ bower.commands
     console.error(error)
   })
   .on('end', function () {
-    grunt.tasks('serve');
+    grunt.tasks(task);
   });

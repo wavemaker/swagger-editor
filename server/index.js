@@ -23,13 +23,12 @@ mongoose.connection.on('error', function (err) {
   console.error(err);
 });
 
-app.use('/', express.static(argv.public || path.join(__dirname, '..', 'dist')));
+router(app);
 app.set('views', argv.views || path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(morgan('combined'));
 app.use(bodyParser.text());
 app.use(cookieParser());
-router(app);
 
 var port = process.env.PORT || config.server.port;
 app.listen(port, function (err) {
