@@ -27,6 +27,8 @@ SwaggerEditor.controller('MainCtrl', function MainCtrl($rootScope, $stateParams,
     Storage.load('yaml').then(function (yaml) {
       var url;
 
+      $rootScope.editorValue = yaml;
+
       // If there is a url provided, override the storage with that URL
       if ($stateParams.import) {
         url = $stateParams.import;
