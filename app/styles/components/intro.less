@@ -1,5 +1,6 @@
 @import "../fonts";
 @import "../colors";
+@import "../variables";
 
 .about-pane {
   position: fixed;
@@ -39,7 +40,7 @@
     width: 80px;
     top: 3%;
     left: 2%;
-    background-image: url("/images/overlay-arrow.svg");
+    background-image: url("@{images-url}/overlay-arrow.svg");
     background-repeat: no-repeat;
     background-position: 0px 0px;
     background-size: 60px;
@@ -84,7 +85,7 @@
     .sw-font-light;
     background: none;
     border: none;
-    background-image: url("/images/close.svg");
+    background-image: url("@{images-url}/close.svg");
     background-repeat: no-repeat;
     background-position: 0px 0px;
     background-size: 33px;

@@ -1,4 +1,5 @@
 @import "../colors";
+@import "../variables";
 
 .main-header {
   background: @header-bg;
@@ -9,7 +10,7 @@
 }
 
 a.logo {
-  background-image: url("/images/swagger-sprite.png");
+  background-image: url("@{images-url}/swagger-sprite.png");
   background-repeat: no-repeat;
   background-position: 0 -25px;
   background-size: 25px;
@@ -46,7 +47,7 @@ a.logo {
     &.error {
       .icon {
         display: inline-block;
-        background-image: url("/images/warning.svg");
+        background-image: url("@{images-url}/warning.svg");
       }
       background-repeat: no-repeat;
       background-position: 0px 5px;

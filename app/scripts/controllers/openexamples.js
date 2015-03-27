@@ -11,7 +11,7 @@ SwaggerEditor.controller('OpenExamplesCtrl', function OpenExamplesCtrl($scope,
 
     Analytics.sendEvent('open-example', 'open-example:' + file);
 
-    FileLoader.loadFromUrl('spec-files/' + file).then(function (value) {
+    FileLoader.loadFromUrl(defaults.examplesFolder + file).then(function (value) {
       Storage.save('yaml', value);
       ASTManager.refresh(value);
       $rootScope.editorValue = value;

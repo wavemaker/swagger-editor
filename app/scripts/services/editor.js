@@ -1,7 +1,7 @@
 'use strict';
 
 SwaggerEditor.service('Editor', function Editor(Autocomplete, ASTManager,
-  LocalStorage, $interval) {
+  LocalStorage, $interval, defaults) {
   var editor = null;
   var onReadyFns = [];
   var changeFoldFns = [];
@@ -27,7 +27,7 @@ SwaggerEditor.service('Editor', function Editor(Autocomplete, ASTManager,
     // Assign class variable `editor`
     window.e = editor = e;
 
-    ace.config.set('basePath', 'bower_components/ace-builds/src-noconflict');
+    ace.config.set('basePath', defaults.aceBuildsBasePath);
 
     Autocomplete.init(e);
     // Set editor options
