@@ -7,13 +7,19 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
   var commit = _.throttle(commitNow, 200, {leading: false, trailing: true});
 
   function commitNow(data) {
-    var result = Builder.buildDocs(data, { resolve: true });
+    var result = Builder.buildDocs(data, { resolve: true }),
+        json;
     if (!result.error) {
-      $http.post(defaults.backendEndpoints.post, [JSON.parse(data)]);
+      if (angular.isString(data)) {
+        json = [jsyaml.load(data)];
+      } else {
+        json = [json];
+      }
+      $http.post(defaults.backendEndpoints.post, json);
     }
   }
 
-  this.save = function (key, value) {
+  this.save = function (key, value, saveInBackend) {
 
     // Save values in a buffer
     buffer[key] = value;
@@ -25,7 +31,7 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
     }
 
     if (defaults.useYamlBackend && (key === 'yaml' && value)) {
-      commit(value);
+      commit(value, saveInBackend);
     } else if (key === 'specs' && value) {
       commit(buffer[key]);
     }
@@ -35,7 +41,7 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
   this.reset = noop;
 
   this.load = function (key) {
-    if (key !== 'yaml') {
+    if (key !== 'yaml' || !defaults.backendEndpoints.apiId) {
       var deferred = $q.defer();
       if (!key) {
         deferred.reject();
@@ -45,13 +51,19 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
       return deferred.promise;
     }
 
-    return $http.get(defaults.backendEndpoints.get)
+    return $http.get(defaults.backendEndpoints.get + defaults.backendEndpoints.apiId)
       .then(function (res) {
+        var yaml;
+        if (angular.isObject(res) && res.data[0]) {
+          yaml = jsyaml.dump(res.data[0])
+        } else {
+          yaml = res;
+        }
         if (defaults.useYamlBackend) {
-          buffer.yaml = res && res.data && JSON.stringify(res.data[0], null, 2);
+          buffer.yaml = yaml;
           return buffer.yaml;
         }
-        return res.data;
+        return yaml;
       });
   };
 

@@ -59,7 +59,7 @@ SwaggerEditor.service('FileLoader', function FileLoader($http, defaults) {
       if (angular.isObject(resp.data)) {
         return jsyaml.dump(resp.data);
       } else {
-        return load(resp.data);
+        return resp.data;
       }
     });
   };

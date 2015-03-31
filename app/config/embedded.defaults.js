@@ -30,8 +30,9 @@ window.$$embeddedDefaults = {
   autocompleteExtension: {},
   useBackendForStorage: true,
   backendEndpoints: {
-    get: '../../edn-services/rest/documents/project/' + ($apiId ? decodeURIComponent($apiId) : ''),
-    post: '../../edn-services/rest/documents/publish?isApiFirst=true'
+    get: '../../edn-services/rest/documents/project/',
+    post: '../../edn-services/rest/documents/publish?isApiFirst=true',
+    apiId: $apiId !== "undefined" ?  decodeURIComponent($apiId) : undefined
   },
   backendHealthCheckTimeout: 5000,
   useYamlBackend: true,
