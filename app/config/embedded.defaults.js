@@ -17,6 +17,7 @@ window.$$embeddedDefaults = {
   disableCodeGen: true,
   examplesFolder: 'tp/swagger-editor/app/spec-files/',
   exampleFiles: [
+    'guide.yaml',
     'default.yaml',
     'heroku-pets.yaml',
     'minimal.yaml',
