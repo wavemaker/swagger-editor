@@ -4,6 +4,8 @@ SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $modal,
   $stateParams, $state, $rootScope, Storage, Builder, FileLoader, ASTManager,
   Editor, Codegen, Preferences, defaults, strings) {
 
+  $scope.headerOptions = defaults.headerOptions;
+
   if ($stateParams.path) {
     $scope.breadcrumbs  = [{ active: true, name: $stateParams.path }];
   } else {
@@ -69,7 +71,7 @@ SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $modal,
   };
 
   $scope.newProject = function (fresh) {
-    FileLoader.loadFromUrl('spec-files/guide.yaml').then(function (value) {
+    FileLoader.loadFromUrl(defaults.examplesFolder + 'guide.yaml').then(function (value) {
       value = fresh ? '' : value;
       $rootScope.editorValue = value;
       ASTManager.refresh($rootScope.editorValue);
@@ -110,6 +112,22 @@ SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $modal,
       templateUrl: 'templates/about.html',
       size: 'large',
       controller: 'ModalCtrl'
+    });
+  };
+
+  $scope.saveDoc = function () {
+    $modal.open({
+      templateUrl: 'templates/save-doc.html',
+      controller: 'SaveDocCtrl',
+      size: 'large'
+    });
+  };
+
+  $scope.deleteDoc = function () {
+    $modal.open({
+      templateUrl: 'templates/delete-doc.html',
+      controller: 'DeleteDocCtrl',
+      size: 'large'
     });
   };
 

@@ -6,6 +6,7 @@
 * bootstrap will check for window.$$embeddedDefaults property for the settings
 *******************************************************************************/
 
+var $apiId = location.search.split('apiId=')[1];
 
 window.$$embeddedDefaults = {
   analytics: {
@@ -26,15 +27,25 @@ window.$$embeddedDefaults = {
     'security.yaml'
   ],
   autocompleteExtension: {},
-  useBackendForStorage: false,
-  backendEndpoint: '/editor/spec',
+  useBackendForStorage: true,
+  backendEndpoints: {
+    get: '../../edn-services/rest/documents/project/' + ($apiId ? decodeURIComponent($apiId) : ''),
+    post: '../../edn-services/rest/documents/publish?isApiFirst=true'
+  },
   backendHealthCheckTimeout: 5000,
-  useYamlBackend: false,
+  useYamlBackend: true,
   disableFileMenu: false,
   headerBranding: true,
+  disableNewUserIntro: true,
   enableTryIt: true,
   brandingCssClass: '',
   schemaUrl: 'tp/swagger-editor/app/schema/swagger.json',
   importProxyUrl: 'https://cors-it.herokuapp.com/?url=',
-  aceBuildsBasePath: 'tp/ace-builds/src-noconflict'
+  aceBuildsBasePath: 'tp/ace-builds/src-noconflict',
+  headerOptions: {
+    fileMenu: {
+      blankProject: false,
+      importURL: false
+    }
+  }
 };

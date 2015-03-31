@@ -9,7 +9,7 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
   function commitNow(data) {
     var result = Builder.buildDocs(data, { resolve: true });
     if (!result.error) {
-      $http.put(defaults.backendEndpoint, data);
+      $http.post(defaults.backendEndpoints.post, [JSON.parse(data)]);
     }
   }
 
@@ -45,10 +45,10 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
       return deferred.promise;
     }
 
-    return $http.get(defaults.backendEndpoint)
+    return $http.get(defaults.backendEndpoints.get)
       .then(function (res) {
         if (defaults.useYamlBackend) {
-          buffer.yaml = res.data;
+          buffer.yaml = res && res.data && JSON.stringify(res.data[0], null, 2);
           return buffer.yaml;
         }
         return res.data;
