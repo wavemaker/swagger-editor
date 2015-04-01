@@ -6,10 +6,10 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
   var buffer = {};
   var commit = _.throttle(commitNow, 200, {leading: false, trailing: true});
 
-  function commitNow(data) {
+  function commitNow(data, saveInBackend) {
     var result = Builder.buildDocs(data, { resolve: true }),
         json;
-    if (!result.error) {
+    if (!result.error && saveInBackend) {
       if (angular.isString(data)) {
         json = [jsyaml.load(data)];
       } else {

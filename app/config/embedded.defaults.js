@@ -32,7 +32,7 @@ window.$$embeddedDefaults = {
   backendEndpoints: {
     get: '../../edn-services/rest/documents/project/',
     post: '../../edn-services/rest/documents/publish?isApiFirst=true',
-    apiId: $apiId !== "undefined" ?  decodeURIComponent($apiId) : undefined
+    apiId: $apiId !== "undefined" ?  decodeURIComponent($apiId) : 'template'
   },
   backendHealthCheckTimeout: 5000,
   useYamlBackend: true,
