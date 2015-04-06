@@ -42,6 +42,10 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
 
   };
 
+  this.deleteDoc = function () {
+    return $http.delete(defaults.backendEndpoints.deleteApi + defaults.backendEndpoints.id);
+  };
+
   this.reset = noop;
 
   this.load = function (key) {

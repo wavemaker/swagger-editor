@@ -6,7 +6,20 @@
 * bootstrap will check for window.$$embeddedDefaults property for the settings
 *******************************************************************************/
 
-var $apiId = location.search.split('apiId=')[1];
+function getJsonFromUrl() {
+  var query = location.search.substr(1);
+  var result = {};
+  query.split("&").forEach(function(part) {
+    var item = part.split("=");
+    result[item[0]] = decodeURIComponent(item[1]);
+  });
+  return result;
+}
+
+var $queryParams = getJsonFromUrl(),
+    $apiId = $queryParams['apiId'],
+    $id = $queryParams['id'];
+
 
 window.$$embeddedDefaults = {
   analytics: {
@@ -14,6 +27,7 @@ window.$$embeddedDefaults = {
       id: 'UA-51231036-1'
     }
   },
+  appPage: 'index.html',
   disableCodeGen: true,
   examplesFolder: 'tp/swagger-editor/app/spec-files/',
   exampleFiles: [
@@ -32,7 +46,9 @@ window.$$embeddedDefaults = {
   backendEndpoints: {
     get: '../../api-creator/rest/documents/',
     post: '../../api-creator/rest/documents/publish?apiName=',
-    apiId: $apiId !== "undefined" ?  decodeURIComponent($apiId) : 'template'
+    deleteApi: '../../api-creator/rest/apiInfo/',
+    apiId: $apiId,
+    id: $id
   },
   backendHealthCheckTimeout: 5000,
   useYamlBackend: true,
