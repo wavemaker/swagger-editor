@@ -15,7 +15,11 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
       } else {
         json = [json];
       }
-      $http.post(defaults.backendEndpoints.post, json);
+      $http.post(defaults.backendEndpoints.post + defaults.backendEndpoints.apiId, json, {
+          'headers': {
+            'Content-Type':'text/plain'
+          }
+      });
     }
   }
 
