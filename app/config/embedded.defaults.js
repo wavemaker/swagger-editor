@@ -6,20 +6,7 @@
 * bootstrap will check for window.$$embeddedDefaults property for the settings
 *******************************************************************************/
 
-function getJsonFromUrl() {
-  var query = location.search.substr(1);
-  var result = {};
-  query.split("&").forEach(function(part) {
-    var item = part.split("=");
-    result[item[0]] = decodeURIComponent(item[1]);
-  });
-  return result;
-}
-
-var $queryParams = getJsonFromUrl(),
-    $apiId = $queryParams['apiId'],
-    $id = $queryParams['id'];
-
+var $apiId = location.search.split('apiId=')[1];
 
 window.$$embeddedDefaults = {
   analytics: {
@@ -45,10 +32,9 @@ window.$$embeddedDefaults = {
   useBackendForStorage: true,
   backendEndpoints: {
     get: '../../api-creator/rest/documents/',
-    post: '../../api-creator/rest/documents/publish?apiName=',
-    deleteApi: '../../api-creator/rest/apiInfo/',
-    apiId: $apiId,
-    id: $id
+    post: '../../api-creator/rest/documents?apiId=',
+    deleteApi: '../../api-creator/rest/documents/',
+    apiId: $apiId !== "undefined" ?  decodeURIComponent($apiId) : undefined
   },
   backendHealthCheckTimeout: 5000,
   useYamlBackend: true,

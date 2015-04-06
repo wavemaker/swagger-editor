@@ -131,6 +131,10 @@ SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $modal,
     });
   };
 
+  $scope.closeEditor = function () {
+    window.top.location.href = defaults.appPage;
+  }
+
   $scope.toggleAboutEditor = function (value) {
     $scope.showAbout = value;
   };
