@@ -46,6 +46,7 @@ window.$$embeddedDefaults = {
   schemaUrl: 'tp/swagger-editor/app/schema/swagger.json',
   importProxyUrl: 'https://cors-it.herokuapp.com/?url=',
   aceBuildsBasePath: 'tp/ace-builds/src-noconflict',
+  leftPaneTemplateUrl: 'templates/swagger-editor/left-panel.html',
   headerOptions: {
     fileMenu: {
       blankProject: false,

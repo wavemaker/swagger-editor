@@ -23,6 +23,10 @@ SwaggerEditor.config(function Router($compileProvider, $stateProvider,
       'preview@home': {
         templateUrl: 'views/preview/preview.html',
         controller: 'PreviewCtrl'
+      },
+      'leftPane@home': {
+        templateUrl: 'views/left-pane/left-pane.html',
+        controller: 'LeftPaneCtrl'
       }
     }
   });
