@@ -5,18 +5,16 @@ SwaggerEditor.controller('SaveDocCtrl', function SaveDocCtrl($scope, $rootScope,
 
   $scope.saveMsg = 'Save in progress&hellip;';
 
-  function saveDoc() {
+  //saveDoc
+  (function() {
     var value = $rootScope.editorValue;
 
-    Storage.save('yaml', value, true);
-    ASTManager.refresh($rootScope.editorValue);
-    $timeout(function () {
+    Storage.save('yaml', value, function () {
       $scope.saveMsg = 'Save successful';
       $modalInstance.close();
-    }, 2000);
-  }
-
-  saveDoc();
+    }, true);
+    ASTManager.refresh($rootScope.editorValue);
+  }());
 
   $scope.close = $modalInstance.close;
 });

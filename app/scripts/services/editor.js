@@ -32,7 +32,7 @@ SwaggerEditor.service('Editor', function Editor(Autocomplete, ASTManager,
     Autocomplete.init(e);
     // Set editor options
     editor.setOptions({
-      fontFamily: 'Source Code Pro',
+      fontFamily: 'monospace',
       enableBasicAutocompletion: true,
       enableLiveAutocompletion: true,
       enableSnippets: true
@@ -181,7 +181,7 @@ SwaggerEditor.service('Editor', function Editor(Autocomplete, ASTManager,
       showGutter: true,
       displayIndentGuides: true,
       fontSize: 12,
-      fontFamily: 'Source Code Pro',
+      fontFamily: 'monospace',
       scrollPastEnd: 0,
       theme: 'ace/theme/atom_dark',
       scrollSpeed: 2,

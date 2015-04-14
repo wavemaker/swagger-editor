@@ -6,7 +6,7 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
   var buffer = {};
   var commit = _.throttle(commitNow, 200, {leading: false, trailing: true});
 
-  function commitNow(data, saveInBackend) {
+  function commitNow(data, callback, saveInBackend) {
     var result = Builder.buildDocs(data, { resolve: true }),
         json;
     if (!result.error && saveInBackend) {
@@ -15,15 +15,19 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
       } else {
         json = [json];
       }
-      $http.post(defaults.backendEndpoints.post + defaults.backendEndpoints.apiId, json, {
+      $http.post(defaults.backendEndpoints.post + defaults.backendEndpoints.projectId, json, {
           'headers': {
             'Content-Type':'text/plain'
           }
+      }).then(function (response) {
+        if (angular.isFunction(callback)) {
+          callback(response);
+        }
       });
     }
   }
 
-  this.save = function (key, value, saveInBackend) {
+  this.save = function (key, value, callback, saveInBackend) {
 
     // Save values in a buffer
     buffer[key] = value;
@@ -35,7 +39,7 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
     }
 
     if (defaults.useYamlBackend && (key === 'yaml' && value)) {
-      commit(value, saveInBackend);
+      commit(value, callback, saveInBackend);
     } else if (key === 'specs' && value) {
       commit(buffer[key]);
     }
@@ -43,13 +47,13 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
   };
 
   this.deleteDoc = function () {
-    return $http.delete(defaults.backendEndpoints.deleteApi + defaults.backendEndpoints.apiId);
+    return $http.delete(defaults.backendEndpoints.deleteApi + defaults.backendEndpoints.projectId);
   };
 
   this.reset = noop;
 
   this.load = function (key) {
-    if (key !== 'yaml' || !defaults.backendEndpoints.apiId) {
+    if (key !== 'yaml' || !defaults.backendEndpoints.projectId) {
       var deferred = $q.defer();
       if (!key) {
         deferred.reject();
@@ -59,7 +63,7 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
       return deferred.promise;
     }
 
-    return $http.get(defaults.backendEndpoints.get + defaults.backendEndpoints.apiId)
+    return $http.get(defaults.backendEndpoints.get + defaults.backendEndpoints.projectId)
       .then(function (res) {
         var yaml;
         if (angular.isObject(res) && res.data[0]) {

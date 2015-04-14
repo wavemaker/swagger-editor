@@ -115,6 +115,19 @@ SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $modal,
     });
   };
 
+  $scope.openSwaggerSpec = function () {
+    $modal.open({
+      templateUrl: 'templates/swagger-spec.html',
+      size: 'large',
+      controller: 'SwaggerSpecModalCtrl',
+      resolve: {
+        swaggerSpecPath: function () {
+          return defaults.swaggerSpecPath
+        }
+      }
+    });
+  };
+
   $scope.saveDoc = function () {
     $modal.open({
       templateUrl: 'templates/save-doc.html',

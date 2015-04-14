@@ -6,7 +6,7 @@
 * bootstrap will check for window.$$embeddedDefaults property for the settings
 *******************************************************************************/
 
-var $apiId = location.search.split('apiId=')[1];
+var $projectId = location.search.split('projectId=')[1];
 
 window.$$embeddedDefaults = {
   analytics: {
@@ -32,9 +32,9 @@ window.$$embeddedDefaults = {
   useBackendForStorage: true,
   backendEndpoints: {
     get: '../../api-creator/rest/documents/',
-    post: '../../api-creator/rest/documents?apiId=',
+    post: '../../api-creator/rest/documents?projectId=',
     deleteApi: '../../api-creator/rest/documents/',
-    apiId: $apiId !== "undefined" ?  decodeURIComponent($apiId) : undefined
+    projectId: $projectId !== "undefined" ?  decodeURIComponent($projectId) : undefined
   },
   backendHealthCheckTimeout: 5000,
   useYamlBackend: true,
@@ -46,6 +46,7 @@ window.$$embeddedDefaults = {
   schemaUrl: 'tp/swagger-editor/app/schema/swagger.json',
   importProxyUrl: 'https://cors-it.herokuapp.com/?url=',
   aceBuildsBasePath: 'tp/ace-builds/src-noconflict',
+  swaggerSpecPath: 'swagger-spec.md.html',
   leftPaneTemplateUrl: 'templates/swagger-editor/left-panel.html',
   headerOptions: {
     fileMenu: {
