@@ -11,10 +11,16 @@ SwaggerEditor.controller('SaveDocCtrl', function SaveDocCtrl($scope, $rootScope,
 
     Storage.save('yaml', value, function () {
       $scope.saveMsg = 'Save successful';
+      $rootScope.isEditorValueDirty = false;
       $modalInstance.close();
     }, true);
     ASTManager.refresh($rootScope.editorValue);
   }());
 
   $scope.close = $modalInstance.close;
+
+  setTimeout(function () {
+    $(document).click();
+  }, 0);
+
 });

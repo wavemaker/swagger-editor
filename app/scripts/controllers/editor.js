@@ -18,10 +18,13 @@ SwaggerEditor.controller('EditorCtrl', function EditorCtrl($scope, $rootScope,
     });
   });
 
-  function onAceChange() {
+  function onAceChange(isLoaded) {
     var value = $rootScope.editorValue;
 
     Storage.save('yaml', value);
     ASTManager.refresh($rootScope.editorValue);
+    if (!isLoaded) {
+      $rootScope.isEditorValueDirty = !angular.isUndefined($rootScope.isEditorValueDirty);
+    }
   }
 });

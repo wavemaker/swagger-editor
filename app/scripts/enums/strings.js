@@ -7,7 +7,7 @@ SwaggerEditor.config(function ($provide) {
       '-1': 'Error!',
       0: 'Working...',
       1: 'Unsaved changes',
-      2: 'All changes saved.'
+      2: 'Preview updated.'
     }
   });
 });
