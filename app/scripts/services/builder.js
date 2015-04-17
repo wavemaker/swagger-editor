@@ -15,7 +15,7 @@ SwaggerEditor.service('Builder', function Builder($q) {
     var deferred = $q.defer();
 
     // If stringVlue is empty, return emptyDocsError
-    if (!stringValue) {
+    if (false) {
       deferred.reject({
         specs: null,
         errors: [{emptyDocsError: 'Empty Document Error'}]

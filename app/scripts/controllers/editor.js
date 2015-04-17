@@ -13,6 +13,7 @@ SwaggerEditor.controller('EditorCtrl', function EditorCtrl($scope, $rootScope,
 
   Editor.ready(function () {
     Storage.load('yaml').then(function (yaml) {
+      Editor.setReadOnly($rootScope.isReadOnlyMode);
       $rootScope.editorValue = yaml;
       onAceChange(true);
     });

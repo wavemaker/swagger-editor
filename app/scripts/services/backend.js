@@ -1,6 +1,6 @@
 'use strict';
 
-SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
+SwaggerEditor.service('Backend', function Backend($rootScope, $http, $q, defaults,
   Builder) {
   var changeListeners =  {};
   var buffer = {};
@@ -20,8 +20,9 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
             'Content-Type':'text/plain'
           }
       }).then(function (response) {
+        var isError = response && response.data && response.data.errors;
         if (angular.isFunction(callback)) {
-          callback(response);
+          callback(!isError, response);
         }
       });
     }
@@ -66,8 +67,16 @@ SwaggerEditor.service('Backend', function Backend($http, $q, defaults,
     return $http.get(defaults.backendEndpoints.get + defaults.backendEndpoints.projectId)
       .then(function (res) {
         var yaml;
-        if (angular.isObject(res) && res.data[0]) {
-          yaml = jsyaml.dump(res.data[0])
+        if (angular.isObject(res) && angular.isObject(res.data)) {
+          if (res.data.swagger) {
+            yaml = jsyaml.dump(res.data.swagger[0]);
+            $rootScope.projectUserMap = res.data.projectUserMapping;
+            if ($rootScope.projectUserMap) {
+              $rootScope.isReadOnlyMode = ($rootScope.projectUserMap.role === 'VIEWER');
+            }
+          } else if (res.data.errors) {
+            $rootScope.$emit('trigger-project-get-error', res.data.errors);
+          }
         } else {
           yaml = res;
         }

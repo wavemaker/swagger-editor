@@ -225,6 +225,12 @@ SwaggerEditor.service('Editor', function Editor(Autocomplete, ASTManager,
     }
   }
 
+  function setReadOnly (readOnly) {
+    if (editor) {
+      editor.setReadOnly(readOnly);
+    }
+  }
+
   this.aceLoaded = aceLoaded;
   this.resize = resize;
   this.ready = ready;
@@ -242,4 +248,5 @@ SwaggerEditor.service('Editor', function Editor(Autocomplete, ASTManager,
   this.adjustFontSize = adjustFontSize;
   this.resetSettings = resetSettings;
   this.focus = focus;
+  this.setReadOnly = setReadOnly;
 });

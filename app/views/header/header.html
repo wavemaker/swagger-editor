@@ -4,7 +4,7 @@
   <div ng-include="'templates/branding-left.html'" ng-if="showHeaderBranding()" class="branding-3rdparty"></div>
   <section class="menu-bar">
     <div class="api-editor-label dropdown">
-      <span class="branding-text">API Editor</span>
+      <span class="project-name" ng-bind="$root.projectUserMap.project.projectName"></span>
     </div>
     <div class="file dropdown" ng-if="showFileMenu()">
       <button class="btn btn-default dropdown-toggle" type="button"
@@ -12,33 +12,33 @@
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" ng-if="showFileMenu()" role="menu" aria-labelledby="fileMenu">
-        <li role="presentation">
+        <li role="presentation" ng-if="!isReadOnlyMode">
           <a ng-click="newProject()" role="menuitem" tabindex="-1" track-event="file new">New</a>
         </li>
         <li role="presentation" ng-if="headerOptions.fileMenu.blankProject">
           <a ng-click="newProject(true)" role="menuitem" tabindex="-1" track-event="file blank">Blank Project</a>
         </li>
-        <li role="presentation">
+        <li role="presentation"  ng-if="!isReadOnlyMode">
           <a id="open-example" ng-click="openExamples()" role="menuitem" tabindex="-1" track-event="file open-example">Open&hellip;</a>
         </li>
-        <li role="presentation" class="divider"></li>
-        <li role="presentation">
+        <li role="presentation" class="divider" ng-if="!isReadOnlyMode"></li>
+        <li role="presentation" ng-if="!isReadOnlyMode">
           <a ng-click="saveDoc()" role="menuitem" tabindex="-1" track-event="file paste-json">Save&hellip;</a>
         </li>
-        <li role="presentation">
+        <li role="presentation" ng-if="!isReadOnlyMode">
           <a ng-click="deleteDoc()" role="menuitem" tabindex="-1" track-event="file import url">Delete&hellip;</a>
         </li>
-        <li role="presentation" class="divider"></li>
-        <li role="presentation">
+        <li role="presentation" class="divider" ng-if="!isReadOnlyMode"></li>
+        <li role="presentation" ng-if="!isReadOnlyMode">
           <a ng-click="openPasteJSON()" role="menuitem" tabindex="-1" track-event="file paste-json">Paste JSON&hellip;</a>
         </li>
         <li role="presentation" ng-if="headerOptions.fileMenu.importURL">
           <a ng-click="openImportUrl()" role="menuitem" tabindex="-1" track-event="file import url">Import URL&hellip;</a>
         </li>
-        <li role="presentation">
+        <li role="presentation" ng-if="!isReadOnlyMode">
           <a ng-click="openImportFile()" role="menuitem" tabindex="-1" track-event="file import file">Import File&hellip;</a>
         </li>
-        <li role="presentation" class="divider"></li>
+        <li role="presentation" class="divider" ng-if="!isReadOnlyMode"></li>
         <li role="presentation">
           <a download="swagger.yaml" data-downloadurl="{{yamlDownloadUrl}}"
             href="{{yamlDownloadHref}}" role="menuitem" tabindex="-1" track-event="file download yaml">Download YAML</a>

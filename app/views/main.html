@@ -3,6 +3,7 @@
 <main>
   <div ui-layout="{ flow : 'column', dividerSize: '8px'}">
     <div class="editor pane" ui-layout-container>
+      <span ng-if="isReadOnlyMode" class="readonly-message">You cannot edit this YAML file</span>
       <div ui-view="editor"></div>
     </div>
     <div class="preview pane" ui-layout-container>
