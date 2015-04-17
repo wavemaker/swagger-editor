@@ -9,13 +9,15 @@ SwaggerEditor.controller('SaveDocCtrl', function SaveDocCtrl($scope, $rootScope,
   (function() {
     var value = $rootScope.editorValue;
 
-    Storage.save('yaml', value, function (isSuccess, response) {
+    Storage.save('yaml', value, function (isSuccess, data) {
       if (isSuccess) {
         $scope.saveMsg = 'Save successful';
         $rootScope.isEditorValueDirty = false;
         $modalInstance.close();
       } else {
-        $scope.saveMsg = 'Save Failed. ' + response.error[0].message;
+        $scope.saveMsg = 'Save failed';
+        $rootScope.$emit('trigger-project-save-error', data.errors);
+        $modalInstance.close();
       }
     }, true);
     ASTManager.refresh($rootScope.editorValue);

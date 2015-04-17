@@ -22,7 +22,7 @@ SwaggerEditor.service('Backend', function Backend($rootScope, $http, $q, default
       }).then(function (response) {
         var isError = response && response.data && response.data.errors;
         if (angular.isFunction(callback)) {
-          callback(!isError, response);
+          callback(!isError, response.data);
         }
       });
     }
