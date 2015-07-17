@@ -3,6 +3,10 @@
     <a class="focus-editor" ng-click="focusEdit($event, ['paths', path.pathName, operation.operationName])"
       tooltip-placement="left" tooltip="Jump to YAML" tooltip-trigger="mouseenter"></a>
     <div class='http-method' class="toggleOperation">{{operation.operationName | uppercase}} {{path.pathName}}</div>
+    <span class="do-comments-container">
+      <i class="icon icon24 do-comment" ng-click="doComment($event, {endpoint: path.pathName, method: operation.operationName})"></i>
+      <span class="comments-count">{{commentsCount.methods[path.pathName][operationName] || 0}}</span>
+    </span>
   </header>
 
   <div class='content' collapse-when="isCollapsed(['paths', path.pathName, operation.operationName])">

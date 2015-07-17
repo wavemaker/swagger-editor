@@ -1,7 +1,7 @@
 'use strict';
 
 SwaggerEditor.controller('SaveDocCtrl', function SaveDocCtrl($scope, $rootScope,
-  $modalInstance, $timeout, Storage, ASTManager, defaults) {
+  $modalInstance, Storage, ASTManager, defaults) {
 
   $scope.saveMsg = 'Save in progress&hellip;';
 

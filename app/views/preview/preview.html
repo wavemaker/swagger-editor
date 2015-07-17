@@ -35,6 +35,10 @@
       <li class="definition" ng-repeat="(modelName, model) in specs.definitions" ng-if="!isVendorExtension(modelName)" scroll-into-view-when="isInFocus(['definitions', modelName])">
         <h4>
           <a ng-click="toggle(['definitions', modelName])" class="definition-title">{{modelName}}</a>
+          <span class="do-comments-container">
+            <i class="icon icon24 do-comment" ng-click="doComment($event, {model: modelName})"></i>
+            <span class="comments-count">{{commentsCount.models[modelName] || 0}}</span>
+          </span>
         </h4>
         <schema-model schema="model" collapse-when="isCollapsed(['definitions', modelName])"></schema-model>
       </li>

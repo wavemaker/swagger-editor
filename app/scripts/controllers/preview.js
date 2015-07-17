@@ -189,4 +189,12 @@ SwaggerEditor.controller('PreviewCtrl', function PreviewCtrl(Storage, Builder,
   $scope.isVendorExtension = function (key) {
     return key.substring(0, 2).toLowerCase() === 'x-';
   };
+
+  /*
+  ** opens comments with current modelName
+  */
+  $scope.doComment = function ($event, config) {
+    $event.stopPropagation();
+    $rootScope.$emit('trigger-do-comment', config);
+  };
 });

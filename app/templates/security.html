@@ -12,6 +12,10 @@
           <span class="authenticated" style="color:green" ng-if="isAuthenticated(securityDefinitionName)" title="Authenticated">✓</span>
           <span>{{securityDefinitionName}}</span>
           <span class="security-type">({{getHumanSecurityType(securityDefinition.type)}})</span>
+          <span class="do-comments-container">
+            <i class="icon icon24 do-comment" ng-click="doComment($event, {security: securityDefinitionName})"></i>
+            <span class="comments-count">{{commentsCount.security[securityDefinitionName] || 0}}</span>
+          </span>
           <div class="authentication">
             <div>
               <button ng-click="authenticate(securityDefinitionName, securityDefinition)" class="authenticate">{{isAuthenticated(securityDefinitionName) ? 'Change Authentication' : 'Authenticate'}}</button>
