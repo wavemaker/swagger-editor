@@ -48,6 +48,7 @@ window.$$embeddedDefaults = {
   aceBuildsBasePath: 'tp/ace-builds/src-noconflict',
   swaggerSpecPath: 'swagger-spec.md.html',
   leftPaneTemplateUrl: 'templates/swagger-editor/left-panel.html',
+  aboutCommentsPath: 'about-comments.html',
   headerOptions: {
     fileMenu: {
       blankProject: false,

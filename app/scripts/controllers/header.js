@@ -115,6 +115,19 @@ SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $modal,
     });
   };
 
+  $scope.openAboutComments = function () {
+    $modal.open({
+      templateUrl: 'templates/about-comments.html',
+      size: 'large',
+      controller: 'AboutCommentsModalCtrl',
+      resolve: {
+        aboutCommentsPath: function () {
+          return defaults.aboutCommentsPath
+        }
+      }
+    });
+  };
+
   $scope.openSwaggerSpec = function () {
     $modal.open({
       templateUrl: 'templates/swagger-spec.html',
